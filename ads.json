@@ -1,0 +1,23 @@
+[
+  {
+    "name": "bike",
+    "sale": true,
+    "price": 230.15,
+    "photo": "bike.jpg",
+    "tags": ["lifestyle", "motor"]
+  },
+  {
+    "name": "snow jacket",
+    "sale": true,
+    "price": 75,
+    "photo": "jacket.jpg",
+    "tags": ["lifestyle"]
+  },
+  {
+    "name": "iphone 3GS",
+    "sale": false,
+    "price": 50.0,
+    "photo": "iphone.png",
+    "tags": ["lifestyle", "mobile"]
+  }
+]
