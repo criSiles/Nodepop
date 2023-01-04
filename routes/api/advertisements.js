@@ -24,34 +24,34 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// GET /api/agentes
-// Devuelve una lista de agentes
+// GET /api/advertisements
+// Return a list of ads
 router.get("/", async (req, res, next) => {
   try {
-    // filtros
+    // filters
     const name = req.query.name;
     const sale = req.query.sale;
     const price = req.query.price;
     const photo = req.query.photo;
     const tags = req.query.tags;
 
-    // paginación
+    // pagination
     const skip = req.query.skip;
     const limit = req.query.limit;
-    // selección de campos
+    // select fields
     const fields = req.query.fields; // /api/agentes?fields=name -_id
-    // ordenación
+    // sort
     const sort = req.query.sort; // /api/agentes?sort=age%20name
 
     const filter = {};
 
     if (name) {
-      // /api/advertisements?name=Smith
+      // /api/advertisements?name=bike
       filter.name = name;
     }
 
     if (sale) {
-      // /api/advertisements?sale=bike
+      // /api/advertisements?sale=true
       filter.sale = sale;
     }
 
@@ -61,7 +61,7 @@ router.get("/", async (req, res, next) => {
     }
 
     if (photo) {
-      // /api/advertisements?photo= ¿?¿?
+      // /api/advertisements?photo=public/images/name.jpg?
       filter.photo = photo;
     }
 
@@ -70,14 +70,21 @@ router.get("/", async (req, res, next) => {
       filter.tags = tags;
     }
 
-    const agentes = await Advertisement.lista(
+    const adList = await Advertisement.lista(
       filter,
       skip,
       limit,
       fields,
       sort
     );
-    res.json({ results: agentes });
+    console.log(adList);
+
+    // print how many agents are in the database
+    const total = await Advertisement.countDocuments();
+    console.log(`Hay ${total} agentes en la base de datos`);
+
+    // res.json({ results: adList });
+    res.render("listItems", {items: adList})
   } catch (err) {
     next(err);
   }

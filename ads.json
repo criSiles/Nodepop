@@ -7,7 +7,7 @@
     "tags": ["lifestyle", "motor"]
   },
   {
-    "name": "snow jacket",
+    "name": "jacket",
     "sale": true,
     "price": 75,
     "photo": "jacket.jpg",
@@ -17,7 +17,7 @@
     "name": "iphone 3GS",
     "sale": false,
     "price": 50.0,
-    "photo": "iphone.png",
+    "photo": "iphone3GS.jpg",
     "tags": ["lifestyle", "mobile"]
   }
 ]

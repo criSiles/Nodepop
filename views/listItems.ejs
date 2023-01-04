@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Items on Sale</title>
+</head>
+<body>
+    <% for (let i = 0; i < items.length; i++) { %>
+        <div class="item">
+            <h3><%= items[i].name %></h3>
+            <p><%= items[i].sale %></p>
+            <p>Price: $<%= items[i].price %></p>
+            <img src="/images/<%= items[i].photo %>" alt="<%= items[i].name %>" width="500" height="600">
+            <p>Tags:
+                <% for (let j = 0; j < items[i].tags.length; j++) { %>
+                    <%= items[i].tags[j] %>
+                <% } %>
+            </p>
+        </div>
+    <% } %>
+</body>
+</html>
