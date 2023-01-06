@@ -39,15 +39,15 @@ router.get("/", async (req, res, next) => {
     const skip = req.query.skip;
     const limit = req.query.limit;
     // select fields
-    const fields = req.query.fields; // /api/agentes?fields=name -_id
+    const fields = req.query.fields;
     // sort
-    const sort = req.query.sort; // /api/agentes?sort=age%20name
+    const sort = req.query.sort;
 
     const filter = {};
 
     if (name) {
       // /api/advertisements?name=bike
-      filter.name = name;
+      filter.name = new RegExp("^" + req.query.name, "i");
     }
 
     if (sale) {
@@ -56,35 +56,46 @@ router.get("/", async (req, res, next) => {
     }
 
     if (price) {
-      // /api/advertisements?price=23
-      filter.price = price;
+      // /api/advertisements?price=230.15
+
+      let prices = price.split("-");
+
+      if (prices.length === 1) {
+        filter.price = parseFloat(price);
+      } else {
+        filter.price = {};
+
+        let greaterThan = parseFloat(prices[0]);
+        if (greaterThan) {
+          filter.price.$gte = greaterThan;
+        }
+
+        let lowerThan = parseFloat(prices[1]);
+        if (lowerThan) {
+          filter.price.$lte = lowerThan;
+        }
+      }
     }
 
     if (photo) {
-      // /api/advertisements?photo=public/images/name.jpg?
+      // /api/advertisements?photo=name.jpg
       filter.photo = photo;
     }
 
     if (tags) {
-      // /api/advertisements?tags= lifestyle
+      // /api/advertisements?tags=lifestyle
       filter.tags = tags;
     }
 
-    const adList = await Advertisement.lista(
-      filter,
-      skip,
-      limit,
-      fields,
-      sort
-    );
+    const adList = await Advertisement.lista(filter, skip, limit, fields, sort);
     console.log(adList);
 
-    // print how many agents are in the database
+    // print how many ads are in the database
     const total = await Advertisement.countDocuments();
-    console.log(`Hay ${total} agentes en la base de datos`);
+    console.log(`There are ${total} ads in the data base`);
 
     // res.json({ results: adList });
-    res.render("listItems", {items: adList})
+    res.render("listItems", { items: adList });
   } catch (err) {
     next(err);
   }
