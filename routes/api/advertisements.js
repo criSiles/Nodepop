@@ -95,17 +95,41 @@ router.get("/", async (req, res, next) => {
       console.log(filter.$or);
     }
 
+    console.log("HOLAAA", filter, skip);
     const adList = await Advertisement.lista(filter, skip, limit, fields, sort);
     console.log("The items found are:", adList);
 
     // print how many ads are in the database
     const total = await Advertisement.countDocuments();
     console.log(`There are ${total} ads in the data base`);
-
-    res.render("listItems", { items: adList });
+    if (adList.length === 0) {
+      res.send("Product not found");
+    } else {
+      res.render("listItems", { items: adList });
+    }
   } catch (err) {
     next(err);
   }
 });
+
+
+// GET /api/advertisements/tags
+// Return a list of existent tags
+
+router.get("/tags", async (req, res, next) => {
+  let undefinedVar;
+  const adTags = await Advertisement.lista({}, undefinedVar, undefinedVar, "tag", undefinedVar);
+  let myTags = [];
+  for (let element of adTags) {
+    for (let item of element.tag) {
+      if (!myTags.includes(item)) {
+        myTags.push(item);
+      }
+    }
+  }
+  res.render("tags", {tags: myTags});
+})
+
+
 
 module.exports = router;
