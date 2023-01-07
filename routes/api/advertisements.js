@@ -33,7 +33,7 @@ router.get("/", async (req, res, next) => {
     const sale = req.query.sale;
     const price = req.query.price;
     const photo = req.query.photo;
-    const tags = req.query.tags;
+    const tag = req.query.tag;
 
     // pagination
     const skip = req.query.skip;
@@ -82,19 +82,26 @@ router.get("/", async (req, res, next) => {
       filter.photo = photo;
     }
 
-    if (tags) {
-      // /api/advertisements?tags=lifestyle
-      filter.tags = tags;
+    if (tag) {
+      // /api/advertisements?tag=lifestyle
+      let tags = tag.split(" ");
+      let tagStructure = [];
+      console.log(tags);
+      for (let mytag of tags) {
+        tagStructure.push({ tag: mytag });
+      }
+
+      filter.$or = tagStructure;
+      console.log(filter.$or);
     }
 
     const adList = await Advertisement.lista(filter, skip, limit, fields, sort);
-    console.log(adList);
+    console.log("The items found are:", adList);
 
     // print how many ads are in the database
     const total = await Advertisement.countDocuments();
     console.log(`There are ${total} ads in the data base`);
 
-    // res.json({ results: adList });
     res.render("listItems", { items: adList });
   } catch (err) {
     next(err);

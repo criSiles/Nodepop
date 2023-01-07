@@ -18,8 +18,8 @@
                 $<%= items[i].price %></p>
             <img src="/images/<%= items[i].photo %>" alt="<%= items[i].name %>" width="200" height="200">
             <p>Tags:
-                <% for (let j = 0; j < items[i].tags.length; j++) { %>
-                    <%= items[i].tags[j] %>
+                <% for (let j = 0; j < items[i].tag.length; j++) { %>
+                    <%= items[i].tag[j] %>
                 <% } %>
             </p>
         </div>

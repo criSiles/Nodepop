@@ -1,23 +1,37 @@
 [
   {
     "name": "bike",
-    "sale": true,
+    "sale": false,
     "price": 230.15,
     "photo": "bike.jpg",
-    "tags": ["lifestyle", "motor"]
+    "tag": ["lifestyle", "motor"]
   },
   {
     "name": "jacket",
     "sale": true,
-    "price": 75,
+    "price": 75.0,
     "photo": "jacket.jpg",
-    "tags": ["lifestyle"]
+    "tag": ["lifestyle"]
   },
   {
     "name": "iphone 3GS",
     "sale": false,
     "price": 50.0,
     "photo": "iphone3GS.jpg",
-    "tags": ["lifestyle", "mobile"]
+    "tag": ["lifestyle", "mobile"]
+  },
+  {
+    "name": "lab coat",
+    "sale": true,
+    "price": 20.0,
+    "photo": "labcoat.jpg",
+    "tag": ["lifestyle", "work"]
+  },
+  {
+    "name": "motorcycle",
+    "sale": true,
+    "price": 500.0,
+    "photo": "motorcycle.jpg",
+    "tag": ["motor"]
   }
 ]

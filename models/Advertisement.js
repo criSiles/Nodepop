@@ -7,7 +7,7 @@ const advertisementSchema = mongoose.Schema({
   sale: Boolean,
   price: Number,
   photo: String,
-  tags: [String],
+  tag: [String],
 });
 
 advertisementSchema.statics.lista = function (
