@@ -1,7 +1,6 @@
 "use strict";
 
 const express = require("express");
-const createError = require("http-errors");
 const Advertisement = require("../../models/Advertisement");
 
 const router = express.Router();
@@ -119,7 +118,7 @@ router.get("/", async (req, res, next) => {
 // GET /api/advertisements/tags
 // Return a list of existent tags
 
-router.get("/tags", async (req, res, next) => {
+router.get("/tags", async (req, res) => {
   let undefinedVar;
   const web = req.query.web;
   const adTags = await Advertisement.lista(

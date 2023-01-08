@@ -111,3 +111,7 @@ The object created will have this aspect in the response:
     if the tag is already in the list it will not be added. Then it renders the list with the list of existent tags.
 
     **EXTRA**: There is an optional parameter **web** in which the system responses with HTML instead of JSON message.
+
+     For example:
+    ```
+    http://localhost:3000/api/advertisements/tags/?web=true

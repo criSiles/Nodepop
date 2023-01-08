@@ -43,13 +43,13 @@ async function initAdvertisement() {
 }
 
 function askingYN(text) {
-    return new Promise((resolve, reject) => {
-      const interface = readline.createInterface({
+    return new Promise((resolve) => {
+      const interfaceYN = readline.createInterfaceYN({
         input: process.stdin,
         output: process.stdout
       });
-      interface.question(text, myResponse => {
-        interface.close();
+      interfaceYN.question(text, myResponse => {
+        interfaceYN.close();
         if (myResponse.toLowerCase() === 'yes') {
           resolve(true);
           return;
