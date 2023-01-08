@@ -34,6 +34,7 @@ router.get("/", async (req, res, next) => {
     const price = req.query.price;
     const photo = req.query.photo;
     const tag = req.query.tag;
+    const web = req.query.web;
 
     // pagination
     const skip = req.query.skip;
@@ -95,7 +96,6 @@ router.get("/", async (req, res, next) => {
       console.log(filter.$or);
     }
 
-    console.log("HOLAAA", filter, skip);
     const adList = await Advertisement.lista(filter, skip, limit, fields, sort);
     console.log("The items found are:", adList);
 
@@ -105,20 +105,30 @@ router.get("/", async (req, res, next) => {
     if (adList.length === 0) {
       res.send("Product not found");
     } else {
-      res.render("listItems", { items: adList });
+      if (web) {
+        res.render("listItems", { items: adList });
+      } else {
+        res.json(adList);
+      }
     }
   } catch (err) {
     next(err);
   }
 });
 
-
 // GET /api/advertisements/tags
 // Return a list of existent tags
 
 router.get("/tags", async (req, res, next) => {
   let undefinedVar;
-  const adTags = await Advertisement.lista({}, undefinedVar, undefinedVar, "tag", undefinedVar);
+  const web = req.query.web;
+  const adTags = await Advertisement.lista(
+    {},
+    undefinedVar,
+    undefinedVar,
+    "tag",
+    undefinedVar
+  );
   let myTags = [];
   for (let element of adTags) {
     for (let item of element.tag) {
@@ -127,9 +137,13 @@ router.get("/tags", async (req, res, next) => {
       }
     }
   }
-  res.render("tags", {tags: myTags});
-})
+  if (web) {
+    res.render("tags", { tags: myTags });
 
-
+  }
+  else {
+    res.json(myTags);
+  }
+});
 
 module.exports = router;

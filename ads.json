@@ -28,10 +28,10 @@
     "tag": ["lifestyle", "work"]
   },
   {
-    "name": "motorcycle",
+    "name": "motorbike",
     "sale": true,
     "price": 500.0,
-    "photo": "motorcycle.jpg",
+    "photo": "motorbike.jpg",
     "tag": ["motor"]
   }
 ]
